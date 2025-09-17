@@ -5,19 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ksenya Nails — Запись</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lora:wght@700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css">
-<script src="script.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <h1>💅 Ksenya Beauty Nails</h1>
-      <button class="close-btn" onclick="closeApp()">✕</button>
+    <!-- Главное меню -->
+    <div id="screen-main" class="screen active">
+      <div class="header">
+        <h1>💅 Ksenya Beauty Nails</h1>
+        <button class="close-btn" onclick="closeApp()">✕</button>
+      </div>
+      <div class="main-menu">
+        <button class="btn-primary" onclick="showServiceList()">📋 Выбрать услугу</button>
+        <button class="btn-secondary" onclick="showPrices()">💰 Цены</button>
+        <button class="btn-secondary" onclick="openInstagram()">📸 Работы</button>
+        <button class="btn-secondary" onclick="contactMaster()">📞 Контакты</button>
+      </div>
     </div>
 
-    <!-- Экран: Выбор услуги -->
-    <div id="screen-service" class="screen active">
-      <h2>Выберите услугу</h2>
+    <!-- Экран: Список услуг -->
+    <div id="screen-service" class="screen">
+      <div class="header">
+        <button class="back-btn" onclick="backToMain()">←</button>
+        <h1>Выберите услугу</h1>
+      </div>
       <div class="services-grid">
         <div class="service-card" onclick="selectService(1)">
           <img src="images/1.jpg" alt="Маникюр без покрытия">
@@ -68,7 +80,10 @@
 
     <!-- Экран: Календарь -->
     <div id="screen-calendar" class="screen">
-      <h2>Выберите дату</h2>
+      <div class="header">
+        <button class="back-btn" onclick="backToService()">←</button>
+        <h1>Выберите дату</h1>
+      </div>
       <div class="calendar">
         <div class="calendar-header">
           <button onclick="prevMonth()"><</button>
@@ -85,23 +100,26 @@
     </div>
 
     <!-- Экран: Выбор времени -->
-<div id="screen-time" class="screen">
-  <h2>Выберите время</h2>
-  <div class="buttons-back">
-    <button class="btn-secondary" onclick="backToCalendar()">← Назад</button>
-  </div>
-  <div class="times-grid">
-    <button onclick="selectTime('10:00')">10:00</button>
-    <button onclick="selectTime('12:00')">12:00</button>
-    <button onclick="selectTime('14:00')">14:00</button>
-    <button onclick="selectTime('16:00')">16:00</button>
-    <button onclick="selectTime('18:00')">18:00</button>
-  </div>
-</div>
+    <div id="screen-time" class="screen">
+      <div class="header">
+        <button class="back-btn" onclick="backToCalendar()">←</button>
+        <h1>Выберите время</h1>
+      </div>
+      <div class="times-grid">
+        <button onclick="selectTime('10:00')">10:00</button>
+        <button onclick="selectTime('12:00')">12:00</button>
+        <button onclick="selectTime('14:00')">14:00</button>
+        <button onclick="selectTime('16:00')">16:00</button>
+        <button onclick="selectTime('18:00')">18:00</button>
+      </div>
+    </div>
 
     <!-- Экран: Подтверждение -->
     <div id="screen-confirm" class="screen">
-      <h2>Подтвердите запись</h2>
+      <div class="header">
+        <button class="back-btn" onclick="backToTime()">←</button>
+        <h1>Подтвердите запись</h1>
+      </div>
       <div class="confirm-info">
         <p><strong>Услуга:</strong> <span id="confirm-service">—</span></p>
         <p><strong>Дата:</strong> <span id="confirm-date">—</span></p>
@@ -120,9 +138,40 @@
       <p>Мастер получит уведомление. Пожалуйста, оставьте звук бота включённым — мы напомним вам за день и за час до процедуры.</p>
       <button class="btn-primary" onclick="closeApp()">Готово</button>
     </div>
+
+    <!-- Экран: Цены -->
+    <div id="screen-prices" class="screen">
+      <div class="header">
+        <button class="back-btn" onclick="backToMain()">←</button>
+        <h1>Цены</h1>
+      </div>
+      <div class="prices-list">
+        <p><strong>Маникюр без покрытия</strong> — 400₽</p>
+        <p><strong>Маникюр с покрытием</strong> — 1100₽</p>
+        <p><strong>Наращивание ногтей</strong> — 1500₽</p>
+        <p><strong>Френч / Втирка / Стразы</strong> — 150₽</p>
+        <p><strong>Дизайн</strong> — от 100₽</p>
+        <p><strong>Градиент на все ногти</strong> — 300₽</p>
+        <p><strong>Снятие покрытия</strong> — 100₽</p>
+        <p><strong>Поднятие клюющих</strong> — 200₽</p>
+        <p><strong>Ремонт / зачистка 1 ногтя</strong> — 50₽</p>
+      </div>
+    </div>
+
+    <!-- Экран: Контакты -->
+    <div id="screen-contact" class="screen">
+      <div class="header">
+        <button class="back-btn" onclick="backToMain()">←</button>
+        <h1>Контакты</h1>
+      </div>
+      <div class="contact-info">
+        <p>📲 Instagram: <a href="https://www.instagram.com/ksenya_beauty_nails" target="_blank">@ksenya_beauty_nails</a></p>
+        <p>📞 Телефон: +7 (XXX) XXX-XX-XX</p>
+        <p>📍 Адрес: [ваш адрес]</p>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
-
