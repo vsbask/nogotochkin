@@ -1,106 +1,124 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ksenya Nails — Запись и портфолио</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ksenya Nails — Запись</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lora:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      padding: 20px;
-      background: #fffaf0;
-      color: #333;
-    }
-    h1 { color: #ff69b4; }
-    button {
-      background: #ff69b4;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      margin: 10px 0;
-    }
-    button:disabled {
-      background: #ccc;
-    }
-    .section {
-      margin: 30px 0;
-    }
-    .gallery img {
-      width: 100%;
-      max-width: 300px;
-      border-radius: 12px;
-      margin: 10px;
-    }
-  </style>
 </head>
 <body>
-  <h1>💅 Ksenya Beauty Nails</h1>
+  <div class="container">
+    <div class="header">
+      <h1>💅 Ksenya Beauty Nails</h1>
+      <button class="close-btn" onclick="closeApp()">✕</button>
+    </div>
 
-  <!-- Портфолио -->
-  <div class="section">
-    <h2>📸 Наши работы</h2>
-    <div class="gallery">
-      <img src="https://via.placeholder.com/300x300/ff69b4/ffffff?text=Дизайн+1" alt="Дизайн 1">
-      <img src="https://via.placeholder.com/300x300/ffb6c1/ffffff?text=Дизайн+2" alt="Дизайн 2">
-      <img src="https://via.placeholder.com/300x300/ff1493/ffffff?text=Дизайн+3" alt="Дизайн 3">
+    <!-- Экран: Выбор услуги -->
+    <div id="screen-service" class="screen active">
+      <h2>Выберите услугу</h2>
+      <div class="services-grid">
+        <div class="service-card" onclick="selectService(1)">
+          <img src="images/1.jpg" alt="Маникюр без покрытия">
+          <p>Маникюр без покрытия</p>
+        </div>
+        <div class="service-card" onclick="selectService(2)">
+          <img src="images/2.jpg" alt="Маникюр с покрытием">
+          <p>Маникюр с покрытием</p>
+        </div>
+        <div class="service-card" onclick="selectService(3)">
+          <img src="images/3.jpg" alt="Наращивание">
+          <p>Наращивание ногтей</p>
+        </div>
+        <div class="service-card" onclick="selectService(4)">
+          <img src="images/4.jpg" alt="Френч">
+          <p>Френч</p>
+        </div>
+        <div class="service-card" onclick="selectService(5)">
+          <img src="images/5.jpg" alt="Втирка">
+          <p>Втирка</p>
+        </div>
+        <div class="service-card" onclick="selectService(6)">
+          <img src="images/6.jpg" alt="Стразы">
+          <p>Стразы</p>
+        </div>
+        <div class="service-card" onclick="selectService(7)">
+          <img src="images/7.jpg" alt="Дизайн">
+          <p>Дизайн</p>
+        </div>
+        <div class="service-card" onclick="selectService(8)">
+          <img src="images/8.jpg" alt="Градиент">
+          <p>Градиент</p>
+        </div>
+        <div class="service-card" onclick="selectService(9)">
+          <img src="images/9.jpg" alt="Снятие">
+          <p>Снятие покрытия</p>
+        </div>
+        <div class="service-card" onclick="selectService(10)">
+          <img src="images/10.jpg" alt="Поднятие">
+          <p>Поднятие клюющих</p>
+        </div>
+        <div class="service-card" onclick="selectService(11)">
+          <img src="images/11.jpg" alt="Ремонт">
+          <p>Ремонт/зачистка</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Экран: Календарь -->
+    <div id="screen-calendar" class="screen">
+      <h2>Выберите дату</h2>
+      <div class="calendar">
+        <div class="calendar-header">
+          <button onclick="prevMonth()"><</button>
+          <span id="month-year">Апрель 2025</span>
+          <button onclick="nextMonth()">></button>
+        </div>
+        <div class="calendar-days">
+          <div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Вс</div>
+        </div>
+        <div id="calendar-grid" class="calendar-grid">
+          <!-- Дни будут генерироваться JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Экран: Выбор времени -->
+    <div id="screen-time" class="screen">
+      <h2>Выберите время</h2>
+      <div class="times-grid">
+        <button onclick="selectTime('10:00')">10:00</button>
+        <button onclick="selectTime('12:00')">12:00</button>
+        <button onclick="selectTime('14:00')">14:00</button>
+        <button onclick="selectTime('16:00')">16:00</button>
+        <button onclick="selectTime('18:00')">18:00</button>
+      </div>
+    </div>
+
+    <!-- Экран: Подтверждение -->
+    <div id="screen-confirm" class="screen">
+      <h2>Подтвердите запись</h2>
+      <div class="confirm-info">
+        <p><strong>Услуга:</strong> <span id="confirm-service">—</span></p>
+        <p><strong>Дата:</strong> <span id="confirm-date">—</span></p>
+        <p><strong>Время:</strong> <span id="confirm-time">—</span></p>
+      </div>
+      <div class="buttons">
+        <button class="btn-secondary" onclick="backToTime()">← Назад</button>
+        <button class="btn-primary" onclick="confirmBooking()">✅ Записаться</button>
+      </div>
+    </div>
+
+    <!-- Экран: Успех -->
+    <div id="screen-success" class="screen">
+      <div class="success-icon">✅</div>
+      <h2>Вы записаны!</h2>
+      <p>Мастер получит уведомление. Пожалуйста, оставьте звук бота включённым — мы напомним вам за день и за час до процедуры.</p>
+      <button class="btn-primary" onclick="closeApp()">Готово</button>
     </div>
   </div>
 
-  <!-- Запись -->
-  <div class="section">
-    <h2>📅 Записаться на процедуру</h2>
-    <label>Выберите дату:</label><br>
-    <input type="date" id="date" style="padding: 10px; margin: 10px 0; width: 100%; max-width: 300px;"><br>
-    <label>Выберите время:</label><br>
-    <select id="time" style="padding: 10px; margin: 10px 0; width: 100%; max-width: 300px;">
-      <option value="">-- Выберите время --</option>
-      <option value="10:00">10:00</option>
-      <option value="12:00">12:00</option>
-      <option value="14:00">14:00</option>
-      <option value="16:00">16:00</option>
-      <option value="18:00">18:00</option>
-    </select><br>
-    <button id="bookBtn">Отправить запись</button>
-  </div>
-
-  <script>
-    const webApp = window.Telegram.WebApp;
-    webApp.ready();
-    webApp.setHeaderColor('#ff69b4');
-    webApp.setBackgroundColor('#fffaf0');
-
-    document.getElementById('bookBtn').addEventListener('click', function() {
-      const date = document.getElementById('date').value;
-      const time = document.getElementById('time').value;
-
-      if (!date || !time) {
-        alert('Пожалуйста, выберите дату и время');
-        return;
-      }
-
-      // Отправляем данные в Telegram-бота
-      const data = JSON.stringify({
-        action: 'book',
-        date: date,
-        time: time,
-        user: {
-          id: webApp.initDataUnsafe?.user?.id,
-          name: webApp.initDataUnsafe?.user?.first_name + ' ' + webApp.initDataUnsafe?.user?.last_name
-        }
-      });
-
-      webApp.sendData(data);
-      webApp.showAlert('✅ Запись отправлена! Мастер свяжется с вами.');
-
-      // Закрываем Mini App через 2 секунды
-      setTimeout(() => {
-        webApp.close();
-      }, 2000);
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
