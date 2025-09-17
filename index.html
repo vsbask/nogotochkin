@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ksenya Nails — Запись</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lora:wght@700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="stylesheet" href="styles.css">
+<script src="script.js"></script>
 </head>
 <body>
   <div class="container">
@@ -85,16 +85,19 @@
     </div>
 
     <!-- Экран: Выбор времени -->
-    <div id="screen-time" class="screen">
-      <h2>Выберите время</h2>
-      <div class="times-grid">
-        <button onclick="selectTime('10:00')">10:00</button>
-        <button onclick="selectTime('12:00')">12:00</button>
-        <button onclick="selectTime('14:00')">14:00</button>
-        <button onclick="selectTime('16:00')">16:00</button>
-        <button onclick="selectTime('18:00')">18:00</button>
-      </div>
-    </div>
+<div id="screen-time" class="screen">
+  <h2>Выберите время</h2>
+  <div class="buttons-back">
+    <button class="btn-secondary" onclick="backToCalendar()">← Назад</button>
+  </div>
+  <div class="times-grid">
+    <button onclick="selectTime('10:00')">10:00</button>
+    <button onclick="selectTime('12:00')">12:00</button>
+    <button onclick="selectTime('14:00')">14:00</button>
+    <button onclick="selectTime('16:00')">16:00</button>
+    <button onclick="selectTime('18:00')">18:00</button>
+  </div>
+</div>
 
     <!-- Экран: Подтверждение -->
     <div id="screen-confirm" class="screen">
@@ -122,3 +125,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+
