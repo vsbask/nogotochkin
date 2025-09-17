@@ -66,6 +66,26 @@ h2 {
   gap: 15px;
 }
 
+.buttons-back {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.buttons-back button {
+  background: #f0f0f0;
+  color: #333;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.buttons-back button:hover {
+  transform: scale(1.02);
+}
+
 .service-card {
   background: white;
   border-radius: 16px;
@@ -232,4 +252,5 @@ h2 {
   text-align: center;
   margin-bottom: 20px;
   color: #ff69b4;
+
 }
