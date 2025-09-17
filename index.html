@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ksenya Nails — Запись и портфолио</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      padding: 20px;
+      background: #fffaf0;
+      color: #333;
+    }
+    h1 { color: #ff69b4; }
+    button {
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px 0;
+    }
+    button:disabled {
+      background: #ccc;
+    }
+    .section {
+      margin: 30px 0;
+    }
+    .gallery img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 12px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>💅 Ksenya Beauty Nails</h1>
+
+  <!-- Портфолио -->
+  <div class="section">
+    <h2>📸 Наши работы</h2>
+    <div class="gallery">
+      <img src="https://via.placeholder.com/300x300/ff69b4/ffffff?text=Дизайн+1" alt="Дизайн 1">
+      <img src="https://via.placeholder.com/300x300/ffb6c1/ffffff?text=Дизайн+2" alt="Дизайн 2">
+      <img src="https://via.placeholder.com/300x300/ff1493/ffffff?text=Дизайн+3" alt="Дизайн 3">
+    </div>
+  </div>
+
+  <!-- Запись -->
+  <div class="section">
+    <h2>📅 Записаться на процедуру</h2>
+    <label>Выберите дату:</label><br>
+    <input type="date" id="date" style="padding: 10px; margin: 10px 0; width: 100%; max-width: 300px;"><br>
+    <label>Выберите время:</label><br>
+    <select id="time" style="padding: 10px; margin: 10px 0; width: 100%; max-width: 300px;">
+      <option value="">-- Выберите время --</option>
+      <option value="10:00">10:00</option>
+      <option value="12:00">12:00</option>
+      <option value="14:00">14:00</option>
+      <option value="16:00">16:00</option>
+      <option value="18:00">18:00</option>
+    </select><br>
+    <button id="bookBtn">Отправить запись</button>
+  </div>
+
+  <script>
+    const webApp = window.Telegram.WebApp;
+    webApp.ready();
+    webApp.setHeaderColor('#ff69b4');
+    webApp.setBackgroundColor('#fffaf0');
+
+    document.getElementById('bookBtn').addEventListener('click', function() {
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+
+      if (!date || !time) {
+        alert('Пожалуйста, выберите дату и время');
+        return;
+      }
+
+      // Отправляем данные в Telegram-бота
+      const data = JSON.stringify({
+        action: 'book',
+        date: date,
+        time: time,
+        user: {
+          id: webApp.initDataUnsafe?.user?.id,
+          name: webApp.initDataUnsafe?.user?.first_name + ' ' + webApp.initDataUnsafe?.user?.last_name
+        }
+      });
+
+      webApp.sendData(data);
+      webApp.showAlert('✅ Запись отправлена! Мастер свяжется с вами.');
+
+      // Закрываем Mini App через 2 секунды
+      setTimeout(() => {
+        webApp.close();
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
