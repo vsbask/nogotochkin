@@ -16,11 +16,25 @@ const services = [
   "Ремонт/зачистка"
 ];
 
+const serviceTimes = [
+  40,   // Маникюр без покрытия
+  60,   // Маникюр с покрытием
+  90,   // Наращивание
+  30,   // Френч
+  15,   // Втирка
+  15,   // Стразы
+  45,   // Дизайн
+  40,   // Градиент
+  30,   // Снятие
+  15,   // Поднятие
+  15    // Ремонт
+];
+
 let currentDate = new Date();
 let currentMonth = currentDate.getMonth();
 let currentYear = currentDate.getFullYear();
 
-// Инициализация Telegram WebApp
+// Telegram WebApp
 const webApp = window.Telegram.WebApp;
 webApp.ready();
 webApp.setHeaderColor('#ff69b4');
@@ -28,6 +42,43 @@ webApp.setBackgroundColor('#fffaf0');
 
 function closeApp() {
   webApp.close();
+}
+
+// Переключение экранов
+function showScreen(screenId) {
+  document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+  document.getElementById(screenId).classList.add('active');
+}
+
+function backToMain() {
+  showScreen('screen-main');
+}
+
+function backToService() {
+  showScreen('screen-service');
+}
+
+function backToCalendar() {
+  showScreen('screen-calendar');
+}
+
+function backToTime() {
+  showScreen('screen-time');
+}
+
+// Открыть Instagram
+function openInstagram() {
+  webApp.openLink('https://www.instagram.com/ksenya_beauty_nails');
+}
+
+// Контакты
+function contactMaster() {
+  webApp.openLink('https://t.me/ksenya_nails_bot?start=contact'); // или телеграм
+}
+
+// Цены
+function showPrices() {
+  showScreen('screen-prices');
 }
 
 // Выбор услуги
@@ -50,20 +101,16 @@ function renderCalendar() {
   const firstDay = new Date(currentYear, currentMonth, 1).getDay() || 7;
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-  // Пустые ячейки до 1-го числа
   for (let i = 1; i < firstDay; i++) {
     calendarGrid.innerHTML += '<div></div>';
   }
 
-  // Дни месяца
   for (let day = 1; day <= daysInMonth; day++) {
     const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     const isFuture = new Date(dateStr) >= new Date();
     const isAvailable = isFuture && Math.random() > 0.3; // имитация занятости
 
     let className = '';
-    let text = day;
-
     if (!isFuture) {
       className = 'unavailable';
     } else if (isAvailable) {
@@ -74,7 +121,7 @@ function renderCalendar() {
 
     calendarGrid.innerHTML += `
       <div class="${className}" ${isAvailable ? `onclick="selectDate('${dateStr}')" ` : ''}>
-        ${text}
+        ${day}
       </div>
     `;
   }
@@ -113,14 +160,6 @@ function selectTime(timeStr) {
   showScreen('screen-confirm');
 }
 
-function backToTime() {
-  showScreen('screen-time');
-}
-
-function backToCalendar() {
-  showScreen('screen-calendar');
-}
-
 function confirmBooking() {
   if (!selectedService || !selectedDate || !selectedTime) {
     alert('Пожалуйста, выберите все данные');
@@ -147,12 +186,3 @@ function formatDate(dateStr) {
   const options = { day: 'numeric', month: 'long' };
   return date.toLocaleDateString('ru-RU', options);
 }
-
-function showScreen(screenId) {
-  document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
-  document.getElementById(screenId).classList.add('active');
-}
-
-// Инициализация
-
-renderCalendar();
