@@ -117,6 +117,10 @@ function backToTime() {
   showScreen('screen-time');
 }
 
+function backToCalendar() {
+  showScreen('screen-calendar');
+}
+
 function confirmBooking() {
   if (!selectedService || !selectedDate || !selectedTime) {
     alert('Пожалуйста, выберите все данные');
@@ -150,4 +154,5 @@ function showScreen(screenId) {
 }
 
 // Инициализация
+
 renderCalendar();
